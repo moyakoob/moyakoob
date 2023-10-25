@@ -1,0 +1,48 @@
+class heap {
+    int[] arr;
+    int end = -1;
+    heap(int len){
+        arr = new int[len];
+    }
+    public void delete(int index){
+        swap(index,end);
+        end--;
+        checkSwap(index);
+    }
+    public void put(int ele){
+        end++;
+        arr[end] = ele;
+        checkSwap(end);
+    }
+    private void checkSwap(int index){
+        int p = index/2;
+        if(arr[p]>arr[index]){
+            swap(p,index);
+            checkSwap(p);
+        }else{
+            int c1 = index*2;
+            int c2 = c1+1;
+            if(c2<=end){
+                if(arr[index]>arr[c1]||arr[index]>arr[c2]){
+                    int min = arr[c1]>arr[c2]?c2:c1;
+                    swap(min,index);
+                    checkSwap(min);
+                }
+            }
+            if(c1<=end){
+                if(arr[index]>arr[c1]) swap(c1,index);
+            }
+        }
+    }
+    private void swap(int p, int index){
+        int k = arr[p];
+        arr[p] = arr[index];
+        arr[index] = k;
+    }
+    public void view(){
+        for(int i = 0;i<=end;i++){
+            System.out.print(arr[i]+"  ");
+        }
+        System.out.println();
+    }
+}
