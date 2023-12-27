@@ -1,0 +1,39 @@
+private static void sort(int[] k, int i, int j){
+	    if(i==j) return;
+	    int mid = (i+j)/2;
+	    sort(k,i,mid);
+	    sort(k,mid+1,j);
+	    merge(k,i,mid,j);
+	}
+	private static void merge(int[] k, int i, int mid, int j){
+	    int f = i, s = mid+1;
+	    int[] arr = new int[j-i+1];
+	    int index = 0;
+	    while(index<j-i+1){
+	        if(f>mid){
+	            arr[index] = k[s];
+	            s++;
+	            index++;
+	        }
+	        else if(s>j){
+	            arr[index] = k[f];
+	            f++;
+	            index++;
+	        }
+	        else{
+	            if(k[f]<k[s]){
+	                arr[index] = k[f];
+	                f++;
+	                index++;
+	            }
+	            else{
+	                arr[index] = k[s];
+	                s++;
+	                index++;
+	            }
+	        }
+	    }
+	    for(index=0;index<arr.length;index++){
+            k[i+index] = arr[index];
+        }
+	}
